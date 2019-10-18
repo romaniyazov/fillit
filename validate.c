@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:24:46 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/09 17:51:16 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/18 21:34:54 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,17 +80,26 @@ void	validate(int fd)
 {
 	t_blocks	*blocks;
 	char		*block;
+	int			rd;
 
 	blocks = NULL;
 	block = ft_strnew(21);
-	while (read(fd, block, 21) > 0)
+	while ((rd = read(fd, block, 21)) > 0)
 	{
 		if (check_newlines(block) && count_sharps(block) && check_links(block))
 			add_block(&blocks, block);
 		else
-			ft_printf("Error.\n");
+		{
+			ft_printf("error\n");
+			exit(0);
+		}
+	}
+	if (rd < 0)
+	{
+		ft_printf("error\n");
+		exit(0);
 	}
 	normalize_coords(blocks);
-	print_blocks(blocks);
+	try_mapping(blocks);
 	ft_strdel(&block);
 }

@@ -6,29 +6,11 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:22:43 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/09 17:32:28 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/18 16:31:57 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
-
-/*
-**	Debug Print
-*/
-
-void	print_blocks(t_blocks *blocks)
-{
-	int		i;
-
-	while (blocks)
-	{
-		ft_printf("%c\n", blocks->letter);
-		i = -1;
-		while (++i < 4)
-			ft_printf("(%d, %d)\n", blocks->points[i][0], blocks->points[i][1]);
-		blocks = blocks->next;
-	}
-}
 
 void	init_blocks(t_blocks **blocks, char *block)
 {
