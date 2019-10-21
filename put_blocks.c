@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:00:14 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/18 21:20:27 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/21 20:26:40 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,30 @@ void	block_to_map(char **map, t_blocks *b, int ox, int oy)
 	i = -1;
 	while (++i < 4)
 		map[b->points[i][1] + oy][b->points[i][0] + ox] = b->letter;
+	b->put = 1;
 }
 
 int		will_fit(char **map, int **points, int ox, int oy)
 {
 	int		i;
+	int		size;
+	char	**tmp;
 
+	tmp = map;
+	size = 0;
+	while (*tmp)
+	{
+		size++;
+		tmp++;
+	}
 	i = -1;
 	while (++i < 4)
+	{
+		if (points[i][1] + oy >= size || points[i][0] + ox >= size)
+			return (0);
 		if (map[points[i][1] + oy][points[i][0] + ox] != '.')
 			return (0);
+	}
 	return (1);
 }
 
@@ -99,18 +113,24 @@ int		swap_blocks(t_blocks **blocks, int n)
 	return (1);
 }
 
-int		put_next(char **map, t_blocks *blocks, int size)
+int			put_next(char **map, t_blocks *blocks, int size)
 {
-	int		ox;
-	int		oy;
+	int			ox;
+	int			oy;
+	t_blocks	*b;
 
-	ox = 0;
+	b = blocks;
+	ox = -1;
 	oy = 0;
-	while (!will_fit(map, blocks->points, ox, oy))
+	while (b && b->put)
+		b = b->next;
+	if (!b)
+		return (1);
+	while (1)
 	{
-		if (max(blocks->points, 1) + oy + 1 < size)
+		if (oy < size)
 		{
-			if (max(blocks->points, 0) + ox < size)
+			if (ox < size)
 				ox++;
 			else
 			{
@@ -120,16 +140,14 @@ int		put_next(char **map, t_blocks *blocks, int size)
 		}
 		else
 			return (0);
+		if (!will_fit(map, b->points, ox, oy))
+			continue ;
+		block_to_map(map, b, ox, oy);
+		if (put_next(map, blocks, size))
+			return (1);
+		else
+			remove_block(map, b->letter);
 	}
-	block_to_map(map, blocks, ox, oy);
-	blocks->put = 1;
-	if (blocks->next && !put_next(map, blocks->next, size))
-	{
-		remove_block(map, blocks->letter);
-		blocks->put = 0;
-		return (0);
-	}
-	return (1);
 }
 
 void	free_map(char **map)
@@ -179,10 +197,7 @@ void	try_mapping(t_blocks *blocks)
 		if (put_next(map, blocks, size))
 			break ;
 		else
-		{
-			if (rotate_blocks(&blocks) == 'A')
-				size++;
-		}
+			size++;
 		free_map(map);
 	}
 	print_map(map);

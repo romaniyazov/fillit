@@ -1,6 +1,6 @@
 NAME		=	fillit
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -Ilibft
+CFLAGS		=	-Wall -Werror -Wextra -Ilibft -g
 LIBFT		=	-Llibft -lft
 SRC			=	blocks.c \
 				main.c \

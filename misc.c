@@ -6,13 +6,13 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:57:00 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/18 16:32:44 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/21 20:26:12 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-void	remove_block(char **map, char letter)
+void	remove_block(char **map, t_blocks *b)
 {
 	char	*tmp;
 
@@ -21,12 +21,13 @@ void	remove_block(char **map, char letter)
 		tmp = *map;
 		while (*tmp)
 		{
-			if (*tmp == letter)
+			if (*tmp == b->letter)
 				*tmp = '.';
 			tmp++;
 		}
 		map++;
 	}
+	b->put = 0;
 }
 
 void	fill_map(char **map, int map_size)
