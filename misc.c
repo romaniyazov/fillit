@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 14:57:00 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/21 20:26:12 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/22 19:46:14 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int		map_size(t_blocks *blocks)
 {
 	int		map_size;
 	int		blocks_cnt;
-	
+
 	blocks_cnt = count_blocks(blocks);
 	map_size = 1;
 	while (map_size * map_size < blocks_cnt * 4)

@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:24:46 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/22 18:17:04 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/22 20:10:35 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int		count_sharps(char *block)
 	if (sharps == 4 && points == 12)
 		return (1);
 	else
-		return (0);	
+		return (0);
 }
 
 int		check_links(char *block)
@@ -76,7 +76,7 @@ int		check_links(char *block)
 		return (0);
 }
 
-void	error_exit()
+void	error_exit(void)
 {
 	ft_printf("error\n");
 	exit(0);
@@ -93,7 +93,8 @@ void	validate(int fd)
 	block = ft_strnew(21);
 	while ((rd = read(fd, block, 21)) > 0)
 	{
-		if (check_newlines(block) && count_sharps(block) && check_links(block))
+		if (check_newlines(block) && count_sharps(block) && check_links(block)
+			&& count_blocks(blocks) < 26)
 			add_block(&blocks, block);
 		else
 		{

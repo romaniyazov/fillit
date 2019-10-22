@@ -7,7 +7,8 @@ SRC			=	blocks.c \
 				misc.c \
 				normalize.c \
 				put_blocks.c \
-				validate.c
+				validate.c \
+				put_blocks_misc.c
 OBJ			=	$(SRC:%.c=%.o)
 
 all: DEPS $(NAME)
