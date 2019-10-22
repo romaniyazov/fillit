@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:00:14 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/21 20:26:40 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/22 16:05:47 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,82 +71,42 @@ int		will_fit(char **map, int **points, int ox, int oy)
 	return (1);
 }
 
-void	undo_swap(t_blocks **blocks)
+void		move_offset(int **points, int offset[], int size)
 {
-	t_blocks	*target;
-	t_blocks	*tmp;
-	t_blocks	*next;
-
-	target = *blocks;
-	*blocks = target->next;
-	tmp = *blocks;
-	next = NULL;
-	while (tmp->next)
+	if (offset[0] + max(points, 0) < size)
+		offset[0]++;
+	else
 	{
-		if (tmp->next->letter != tmp->letter + 1)
-		{
-			next = tmp->next;
-			tmp->next = target;
-			break ;
-		}
-		tmp = tmp->next;
+		offset[1]++;
+		offset[0] = 0;
 	}
-	target->next = next;
-}
-
-int		swap_blocks(t_blocks **blocks, int n)
-{
-	t_blocks	*prev;
-	t_blocks	*target;
-
-	target = *blocks;
-	while (n--)
-	{
-		prev = target;
-		target = target->next;
-		if (target->next == NULL)
-			return (0);
-	}
-	prev->next = target->next;
-	target->next = *blocks;
-	*blocks = target;
-	return (1);
 }
 
 int			put_next(char **map, t_blocks *blocks, int size)
 {
-	int			ox;
-	int			oy;
+	int			offset[2];
 	t_blocks	*b;
 
 	b = blocks;
-	ox = -1;
-	oy = 0;
+	offset[0] = -1;
+	offset[1] = 0;
 	while (b && b->put)
 		b = b->next;
 	if (!b)
 		return (1);
 	while (1)
 	{
-		if (oy < size)
-		{
-			if (ox < size)
-				ox++;
-			else
-			{
-				oy++;
-				ox = 0;
-			}
-		}
+		if (offset[1] + max(b->points, 1) < size)
+			move_offset(b->points, offset, size);
 		else
 			return (0);
-		if (!will_fit(map, b->points, ox, oy))
+		if (!will_fit(map, b->points, offset[0], offset[1]))
 			continue ;
-		block_to_map(map, b, ox, oy);
+		block_to_map(map, b, offset[0], offset[1]);
 		if (put_next(map, blocks, size))
 			return (1);
 		else
-			remove_block(map, b->letter);
+			remove_block(map, b);
 	}
 }
 
@@ -161,22 +121,6 @@ void	free_map(char **map)
 		tmp++;
 	}
 	free(map);
-}
-
-char	rotate_blocks(t_blocks **blocks)
-{
-	t_blocks	*tmp;
-	t_blocks	*head;
-
-	tmp = *blocks;
-	*blocks = (*blocks)->next;
-	head = *blocks;
-	while ((*blocks)->next)
-		*blocks = (*blocks)->next;
-	(*blocks)->next = tmp;
-	tmp->next = NULL;
-	*blocks = head;
-	return (head->letter);
 }
 
 void	try_mapping(t_blocks *blocks)
@@ -201,4 +145,5 @@ void	try_mapping(t_blocks *blocks)
 		free_map(map);
 	}
 	print_map(map);
+	//free_blocks(blocks);
 }

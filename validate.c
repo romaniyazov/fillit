@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:24:46 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/18 21:34:54 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/22 18:17:04 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		check_newlines(char *block)
 		return (0);
 	if (block[19] != '\n')
 		return (0);
-	if (block[20] != '\n')
+	if (block[20] != '\n' && block[20] != '\0')
 		return (0);
 	return (1);
 }
@@ -76,11 +76,18 @@ int		check_links(char *block)
 		return (0);
 }
 
+void	error_exit()
+{
+	ft_printf("error\n");
+	exit(0);
+}
+
 void	validate(int fd)
 {
 	t_blocks	*blocks;
 	char		*block;
 	int			rd;
+	int			last_rd;
 
 	blocks = NULL;
 	block = ft_strnew(21);
@@ -93,12 +100,10 @@ void	validate(int fd)
 			ft_printf("error\n");
 			exit(0);
 		}
+		last_rd = rd;
 	}
-	if (rd < 0)
-	{
-		ft_printf("error\n");
-		exit(0);
-	}
+	if (rd < 0 || last_rd != 20)
+		error_exit();
 	normalize_coords(blocks);
 	try_mapping(blocks);
 	ft_strdel(&block);

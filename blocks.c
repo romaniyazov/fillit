@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:22:43 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/19 14:55:13 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/22 16:00:38 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_blocks(t_blocks **blocks, char *block)
 		(*blocks)->points[i][0] = j % 5;
 		(*blocks)->points[i][1] = j / 5;
 	}
-	(*blocks)->put = 0; ///////////////
+	(*blocks)->put = 0;
 	(*blocks)->next = NULL;
 }
 
@@ -49,7 +49,7 @@ void	add_block(t_blocks **blocks, char *block)
 	(*blocks)->next = malloc(sizeof(t_blocks));
 	(*blocks)->next->letter = (*blocks)->letter + 1;
 	(*blocks)->next->points = malloc(sizeof(int *) * 4);
-	(*blocks)->next->put = 0; //////////////////////
+	(*blocks)->next->put = 0;
 	i = 0;
 	j = -1;
 	while (++j < 21)
@@ -62,4 +62,19 @@ void	add_block(t_blocks **blocks, char *block)
 		}
 	(*blocks)->next->next = NULL;
 	*blocks = tmp;
+}
+
+void	free_blocks(t_blocks *blocks)
+{
+	t_blocks	*tmp;
+
+	if (!blocks)
+		return ;
+	while (blocks)
+	{
+		tmp = blocks;
+		blocks = blocks->next;
+		free(tmp->points);
+		free(tmp);
+	}
 }
