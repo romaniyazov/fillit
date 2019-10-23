@@ -16,7 +16,7 @@ all: DEPS $(NAME)
 $(NAME): $(OBJ)
 	gcc $(OBJ) $(LIBFT) -o $(NAME)
 
-%.o: %.c fillit.h
+%.o: %.c $(NAME).h
 	$(CC) $(CFLAGS) -o $@ -c $<
 
 DEPS:
