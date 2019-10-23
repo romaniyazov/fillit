@@ -11,9 +11,9 @@ SRC			=	blocks.c \
 				put_blocks_misc.c
 OBJ			=	$(SRC:%.c=%.o)
 
-all: DEPS $(NAME)
+all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): DEPS $(OBJ)
 	gcc $(OBJ) $(LIBFT) -o $(NAME)
 
 %.o: %.c $(NAME).h

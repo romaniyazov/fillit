@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:24:46 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/23 15:23:41 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/23 16:30:15 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	error_exit(t_blocks *blocks)
 {
 	free_blocks(blocks);
 	ft_putendl("error");
-	exit(0);
+	exit(-1);
 }
 
 void	validate(int fd)
