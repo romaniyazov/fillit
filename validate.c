@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:24:46 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/22 20:10:35 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:03:17 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,9 @@ int		check_links(char *block)
 		return (0);
 }
 
-void	error_exit(void)
+void	error_exit(t_blocks *blocks)
 {
+	free_blocks(blocks);
 	ft_printf("error\n");
 	exit(0);
 }
@@ -97,15 +98,12 @@ void	validate(int fd)
 			&& count_blocks(blocks) < 26)
 			add_block(&blocks, block);
 		else
-		{
-			ft_printf("error\n");
-			exit(0);
-		}
+			error_exit(blocks);
 		last_rd = rd;
 	}
+	ft_strdel(&block);
 	if (rd < 0 || last_rd != 20)
-		error_exit();
+		error_exit(blocks);
 	normalize_coords(blocks);
 	try_mapping(blocks);
-	ft_strdel(&block);
 }

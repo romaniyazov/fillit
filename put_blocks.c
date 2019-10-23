@@ -6,13 +6,13 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:00:14 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/22 19:49:07 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/23 14:50:31 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fillit.h"
 
-int			put_next(char **map, t_blocks *blocks, int size)
+int		put_next(char **map, t_blocks *blocks, int size)
 {
 	int			offset[2];
 	t_blocks	*b;
@@ -75,5 +75,6 @@ void	try_mapping(t_blocks *blocks)
 		free_map(map);
 	}
 	print_map(map);
-	//free_blocks(blocks);
+	free_map(map);
+	free_blocks(blocks);
 }

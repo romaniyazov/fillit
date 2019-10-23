@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:22:43 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/22 16:00:38 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/23 14:42:01 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,16 @@ void	add_block(t_blocks **blocks, char *block)
 	*blocks = tmp;
 }
 
+void	free_points(int **tab)
+{
+	int		i;
+
+	i = -1;
+	while(++i < 4)
+		free(tab[i]);
+	free(tab);
+}
+
 void	free_blocks(t_blocks *blocks)
 {
 	t_blocks	*tmp;
@@ -74,7 +84,7 @@ void	free_blocks(t_blocks *blocks)
 	{
 		tmp = blocks;
 		blocks = blocks->next;
-		free(tmp->points);
+		free_points(tmp->points);
 		free(tmp);
 	}
 }
