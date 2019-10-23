@@ -17,6 +17,7 @@ $(NAME): $(OBJ)
 	gcc $(OBJ) $(LIBFT) -o $(NAME)
 
 %.o: %.c fillit.h
+	$(CC) $(CFLAGS) -o $@ -c $<
 
 DEPS:
 	make -C libft/

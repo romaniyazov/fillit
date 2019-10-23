@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:23:28 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/23 15:19:09 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:55:03 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,6 @@
 # define FILLIT_H
 
 # include <fcntl.h>
-# include <sys/types.h>
-# include <sys/uio.h>
-# include <unistd.h>
 # include "libft.h"
 
 typedef struct		s_blocks
