@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/22 19:47:26 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/22 20:11:29 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:11:36 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int		will_fit(char **map, int **points, int ox, int oy)
 	return (1);
 }
 
-void		move_offset(int **points, int offset[], int size)
+void	move_offset(int **points, int offset[], int size)
 {
 	if (offset[0] + max(points, 0) < size)
 		offset[0]++;

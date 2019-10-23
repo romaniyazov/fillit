@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/18 15:00:14 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/23 14:50:31 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:27:29 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ int		put_next(char **map, t_blocks *blocks, int size)
 		if (!will_fit(map, b->points, offset[0], offset[1]))
 			continue ;
 		block_to_map(map, b, offset[0], offset[1]);
+		print_map(map);
+		ft_putchar('\n');
+		usleep(1000000);
 		if (put_next(map, blocks, size))
 			return (1);
 		else

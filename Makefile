@@ -16,7 +16,7 @@ all: DEPS $(NAME)
 $(NAME): $(OBJ)
 	gcc $(OBJ) $(LIBFT) -o $(NAME)
 
-%.o: %.c %.h
+%.o: %.c fillit.h
 
 DEPS:
 	make -C libft/

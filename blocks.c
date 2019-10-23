@@ -6,7 +6,7 @@
 /*   By: adavis <adavis@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 15:22:43 by adavis            #+#    #+#             */
-/*   Updated: 2019/10/23 14:42:01 by adavis           ###   ########.fr       */
+/*   Updated: 2019/10/23 15:13:29 by adavis           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,8 @@ void	init_blocks(t_blocks **blocks, char *block)
 
 void	add_block(t_blocks **blocks, char *block)
 {
-	int		i;
-	int		j;
+	int			i;
+	int			j;
 	t_blocks	*tmp;
 
 	if (!*blocks)
@@ -69,7 +69,7 @@ void	free_points(int **tab)
 	int		i;
 
 	i = -1;
-	while(++i < 4)
+	while (++i < 4)
 		free(tab[i]);
 	free(tab);
 }
