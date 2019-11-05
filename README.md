@@ -9,7 +9,7 @@ The goal of this project is to assemble the smallest possible square from tetrim
 ./fillit tetriminos.txt
 ```
 
-#### Input file example
+### Input file example
 ```
 ....
 ####
